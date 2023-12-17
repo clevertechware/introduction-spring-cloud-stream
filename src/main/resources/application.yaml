@@ -1,0 +1,56 @@
+schema:
+  registry:
+    url: http://localhost:8081
+
+spring:
+  application:
+    name: introduction-spring-cloud-stream
+
+  rabbitmq:
+    addresses: localhost:5672
+    username: guest
+    password: guest
+  cloud:
+    function:
+      definition: processor;consumer
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
+          configuration:
+            security:
+              protocol: PLAINTEXT
+          producer-properties:
+            schema.registry.url: ${schema.registry.url}
+            key.serializer: org.apache.kafka.common.serialization.StringSerializer
+            value.serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+          consumer-properties:
+            schema.registry.url: ${schema.registry.url}
+            key.deserializer: org.apache.kafka.common.serialization.StringDeserializer
+            value.deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+            specific.avro.reader: true
+      output-bindings: producer
+      bindings:
+        processor-in-0:
+          destination: my-process-topic
+          group: consumer
+          contentType: application/*+avro
+          binder: kafka
+          consumer:
+            use-native-decoding: true
+        processor-out-0:
+          destination: my-result-topic
+          group: consumer
+          content-type: application/json
+          binder: rabbit
+        consumer-in-0:
+          destination: my-result-topic
+          group: consumer
+          contentType: application/json
+          binder: rabbit
+        producer:
+          destination: my-process-topic
+          contentType: application/*+avro
+          binder: kafka
+          producer:
+            use-native-encoding: true

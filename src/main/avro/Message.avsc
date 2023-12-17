@@ -1,0 +1,30 @@
+{
+  "namespace": "fr.clevertechware.messages.avro",
+  "type": "record",
+  "name": "Message",
+  "fields": [
+    {
+      "name": "id",
+      "type": "string"
+    },
+    {
+      "name": "timestamp",
+      "type": "long"
+    },
+    {
+      "name": "content",
+      "type": "string"
+    },
+    {
+      "name": "sender",
+      "type": "string"
+    },
+    {
+      "name": "receiver",
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  ]
+}
