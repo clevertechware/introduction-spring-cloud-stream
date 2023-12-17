@@ -32,6 +32,7 @@ fun main(args: Array<String>) {
     System.setProperty("spring.rabbitmq.addresses", rabbit.amqpUrl)
     System.setProperty("spring.rabbitmq.username", rabbit.adminUsername)
     System.setProperty("spring.rabbitmq.password", rabbit.adminPassword)
+    System.setProperty("spring.profiles.active", "testcontainers")
 
     fromApplication<IntroductionSpringCloudStreamApplication>().run(*args)
 }
