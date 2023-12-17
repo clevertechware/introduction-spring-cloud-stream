@@ -43,6 +43,8 @@ dependencies {
     developmentOnly("org.springframework.boot:spring-boot-docker-compose")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.cloud:spring-cloud-stream-test-binder")
+    testImplementation("org.testcontainers:kafka")
+    testImplementation("org.testcontainers:rabbitmq")
 }
 
 dependencyManagement {
