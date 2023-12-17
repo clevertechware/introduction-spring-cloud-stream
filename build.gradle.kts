@@ -33,7 +33,9 @@ dependencies {
     implementation("org.springframework.cloud:spring-cloud-function-context")
     implementation("org.springframework.cloud:spring-cloud-stream")
     implementation("org.springframework.cloud:spring-cloud-stream-binder-kafka")
-    implementation("org.springframework.cloud:spring-cloud-stream-binder-rabbit")
+    implementation("org.springframework.cloud:spring-cloud-stream-binder-rabbit") {
+        exclude(group = "commons-logging", module = "commons-logging")
+    }
     implementation("org.springframework.kafka:spring-kafka")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-web")
