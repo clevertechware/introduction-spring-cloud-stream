@@ -9,7 +9,9 @@ import org.springframework.boot.runApplication
 import org.springframework.cloud.stream.function.StreamOperations
 import org.springframework.context.annotation.Bean
 import java.time.Clock
+import java.util.*
 import java.util.function.Consumer
+import java.util.function.Supplier
 
 @SpringBootApplication
 class IntroductionSpringCloudStreamApplication {
@@ -18,13 +20,19 @@ class IntroductionSpringCloudStreamApplication {
     fun utcClock(): Clock = Clock.systemUTC()
 
     @Bean
+    fun idGenerator(): Supplier<String> = Supplier { UUID.randomUUID().toString() }
+
+    @Bean
+    fun store(): Queue<Result> = LinkedList()
+
+    @Bean
     fun messageProcessor(): MessageProcessor = MessageProcessor()
 
     @Bean
     fun messageProducer(streamOperations: StreamOperations): MessageProducer = MessageProducer(streamOperations)
 
     @Bean
-    fun resultConsumer(): ResultConsumer = ResultConsumer()
+    fun resultConsumer(store: Queue<Result>): ResultConsumer = ResultConsumer(store)
 
     @Bean
     fun processor(messageProcessor: MessageProcessor): (Message) -> Result? = messageProcessor::process

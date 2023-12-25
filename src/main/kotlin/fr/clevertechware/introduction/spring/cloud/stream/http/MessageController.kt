@@ -9,10 +9,11 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 import java.time.Clock
-import java.util.*
+import java.util.function.Supplier
 
 @RestController
 class MessageController(
+    private val idGenerator: Supplier<String>,
     private val messageProducer: MessageProducer,
     private val clock: Clock
 ) {
@@ -24,7 +25,7 @@ class MessageController(
     ) {
         LOGGER.info("Requesting message: {}", messageRequestBody)
         val message = Message.newBuilder()
-            .setId(UUID.randomUUID().toString())
+            .setId(idGenerator.get())
             .setTimestamp(clock.instant().toEpochMilli())
             .setContent(messageRequestBody.content)
             .setSender(sender)
