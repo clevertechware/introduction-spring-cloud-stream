@@ -19,7 +19,7 @@
 		<spring-cloud.version>2023.0.0</spring-cloud.version>
 		<avro.version>1.11.3</avro.version>
 		<kafka-avro-serializer.version>7.5.2</kafka-avro-serializer.version>
-		<avro-maven-plugin.version>1.11.1</avro-maven-plugin.version>
+		<avro-maven-plugin.version>1.11.3</avro-maven-plugin.version>
 		<springdoc-openapi-starter-webmvc-ui.version>2.3.0</springdoc-openapi-starter-webmvc-ui.version>
 	</properties>
 	<dependencies>
