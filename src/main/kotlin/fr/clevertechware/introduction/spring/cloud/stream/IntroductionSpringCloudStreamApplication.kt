@@ -3,7 +3,6 @@ package fr.clevertechware.introduction.spring.cloud.stream
 import fr.clevertechware.introduction.spring.cloud.stream.messaging.MessageProcessor
 import fr.clevertechware.introduction.spring.cloud.stream.messaging.MessageProducer
 import fr.clevertechware.introduction.spring.cloud.stream.messaging.ResultConsumer
-import fr.clevertechware.messages.avro.Message
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.cloud.stream.function.StreamOperations
@@ -35,7 +34,7 @@ class IntroductionSpringCloudStreamApplication {
     fun resultConsumer(store: Queue<Result>): ResultConsumer = ResultConsumer(store)
 
     @Bean
-    fun processor(messageProcessor: MessageProcessor): (Message) -> Result? = messageProcessor::process
+    fun processor(messageProcessor: MessageProcessor): (String) -> Result? = messageProcessor::process
 
     @Bean
     fun consumer(resultConsumer: ResultConsumer): Consumer<Result> = Consumer(resultConsumer::consume)
